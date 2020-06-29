@@ -4,17 +4,30 @@
  * and open the template in the editor.
  */
 package View;
+import View.Tela_Cadastro_Cliente;
+import View.Tela_Cadastro_Produtos;
+import View.Tela_Clientes;
+import View.Tela_Vendas;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author luish
  */
 public class Tela_Janela_Principal extends javax.swing.JFrame {
+    private Tela_Cadastro_Cliente cadastro_Cliente;
+    private Tela_Clientes clientes;
+    private Tela_Vendas tela_Vendas;
+    private Tela_Cadastro_Produtos cadastro_Produtos;
 
     /**
      * Creates new form JanelaPrincipal
      */
     public Tela_Janela_Principal() {
+        cadastro_Cliente = new Tela_Cadastro_Cliente();
+        clientes = new Tela_Clientes();
+        tela_Vendas = new Tela_Vendas();
+        cadastro_Produtos = new Tela_Cadastro_Produtos();
         initComponents();
     }
 
@@ -28,6 +41,7 @@ public class Tela_Janela_Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        fundo = new View.Images.fundo();
         Menu_Bar = new javax.swing.JMenuBar();
         MCadastrar = new javax.swing.JMenu();
         Menu_Cliente = new javax.swing.JMenuItem();
@@ -44,24 +58,46 @@ public class Tela_Janela_Principal extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
+        fundo.setImg(new ImageIcon("src/View/images/Fundo01.png"));
+
+        javax.swing.GroupLayout fundoLayout = new javax.swing.GroupLayout(fundo);
+        fundo.setLayout(fundoLayout);
+        fundoLayout.setHorizontalGroup(
+            fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 793, Short.MAX_VALUE)
+        );
+        fundoLayout.setVerticalGroup(
+            fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 558, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 817, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(fundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(fundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 35, Short.MAX_VALUE))
         );
 
-        MCadastrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        MCadastrar.setForeground(new java.awt.Color(204, 204, 204));
+        Menu_Bar.setBackground(new java.awt.Color(102, 102, 102));
+        Menu_Bar.setForeground(new java.awt.Color(51, 51, 51));
+
+        MCadastrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        MCadastrar.setForeground(new java.awt.Color(255, 255, 255));
         MCadastrar.setText("Cadastrar");
         MCadastrar.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
 
+        Menu_Cliente.setBackground(new java.awt.Color(102, 102, 102));
         Menu_Cliente.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        Menu_Cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Images/Icon/Cadastrar.png"))); // NOI18N
+        Menu_Cliente.setForeground(new java.awt.Color(255, 255, 255));
+        Menu_Cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Images/Icon/clientes002.png"))); // NOI18N
         Menu_Cliente.setText("Cliente");
         Menu_Cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,25 +106,50 @@ public class Tela_Janela_Principal extends javax.swing.JFrame {
         });
         MCadastrar.add(Menu_Cliente);
 
+        Menu_Produto.setBackground(new java.awt.Color(102, 102, 102));
         Menu_Produto.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        Menu_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Images/Icon/Clientes.png"))); // NOI18N
+        Menu_Produto.setForeground(new java.awt.Color(255, 255, 255));
+        Menu_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Images/Icon/produtos001.png"))); // NOI18N
         Menu_Produto.setText("Produto");
+        Menu_Produto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Menu_ProdutoActionPerformed(evt);
+            }
+        });
         MCadastrar.add(Menu_Produto);
 
+        Menu_Sair.setBackground(new java.awt.Color(102, 102, 102));
         Menu_Sair.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        Menu_Sair.setForeground(new java.awt.Color(255, 255, 255));
+        Menu_Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Images/Icon/saida001.png"))); // NOI18N
         Menu_Sair.setText("Sair");
+        Menu_Sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Menu_SairActionPerformed(evt);
+            }
+        });
         MCadastrar.add(Menu_Sair);
 
         Menu_Bar.add(MCadastrar);
 
-        MClientes.setForeground(new java.awt.Color(204, 204, 204));
+        MClientes.setForeground(new java.awt.Color(255, 255, 255));
         MClientes.setText("Consultar Clientes");
         MClientes.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        MClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MClientesMouseClicked(evt);
+            }
+        });
         Menu_Bar.add(MClientes);
 
-        MProdutos.setForeground(new java.awt.Color(204, 204, 204));
+        MProdutos.setForeground(new java.awt.Color(255, 255, 255));
         MProdutos.setText("Vender Produtos");
         MProdutos.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        MProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MProdutosMouseClicked(evt);
+            }
+        });
         Menu_Bar.add(MProdutos);
 
         setJMenuBar(Menu_Bar);
@@ -112,47 +173,35 @@ public class Tela_Janela_Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Menu_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_ProdutoActionPerformed
+        // TODO add your handling code here:
+        cadastro_Produtos.setVisible(true);
+    }//GEN-LAST:event_Menu_ProdutoActionPerformed
+
+    private void Menu_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_SairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_Menu_SairActionPerformed
+
+    private void MClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MClientesMouseClicked
+        // TODO add your handling code here:
+        clientes.setVisible(true);
+    }//GEN-LAST:event_MClientesMouseClicked
+
+    private void MProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MProdutosMouseClicked
+        // TODO add your handling code here:
+        tela_Vendas.setVisible(true);
+    }//GEN-LAST:event_MProdutosMouseClicked
+
     private void Menu_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_ClienteActionPerformed
         // TODO add your handling code here:
+       cadastro_Cliente.setVisible(true);
     }//GEN-LAST:event_Menu_ClienteActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela_Janela_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela_Janela_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela_Janela_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela_Janela_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Tela_Janela_Principal().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MCadastrar;
@@ -162,6 +211,7 @@ public class Tela_Janela_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem Menu_Cliente;
     private javax.swing.JMenuItem Menu_Produto;
     private javax.swing.JMenuItem Menu_Sair;
+    private View.Images.fundo fundo;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

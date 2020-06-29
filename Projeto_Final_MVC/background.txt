@@ -1,0 +1,3 @@
+new ImageIcon("src/View/images/Fundo01.png")
+
+import javax.swing.ImageIcon;

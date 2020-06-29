@@ -7,12 +7,21 @@
 package View;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import Controller.Login;
+import Model.LoginBD;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import View.Tela_Janela_Principal;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author luish
  */
 public class Tela_Login extends javax.swing.JFrame {
+    private Login set;
+    private LoginBD verificar; 
+    private Tela_Janela_Principal principal;
 
     /** Creates new form Tela_Login */
     
@@ -23,6 +32,9 @@ public class Tela_Login extends javax.swing.JFrame {
      */
     senha;
     public Tela_Login() {
+        principal = new Tela_Janela_Principal();
+        verificar = new LoginBD();
+        set = new Login();
         initComponents();
     }
 
@@ -35,28 +47,43 @@ public class Tela_Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Fundo = new javax.swing.JPanel();
+        fundo1 = new View.Images.fundo();
         Label_Login = new javax.swing.JLabel();
-        TextField_Usuario = new javax.swing.JTextField();
-        PasswordField_Senha = new javax.swing.JPasswordField();
         Label_Usuario = new javax.swing.JLabel();
         Label_Senha = new javax.swing.JLabel();
-        Button_Entrar = new javax.swing.JButton();
         Label_login_Icon = new javax.swing.JLabel();
+        TextField_Usuario = new javax.swing.JTextField();
+        PasswordField_Senha = new javax.swing.JPasswordField();
+        Button_Entrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setPreferredSize(new java.awt.Dimension(450, 650));
         setResizable(false);
+        getContentPane().setLayout(null);
 
-        Fundo.setBackground(new java.awt.Color(51, 51, 51));
-        Fundo.setPreferredSize(new java.awt.Dimension(450, 650));
+        fundo1.setImg(new ImageIcon("src/View/images/Fundo01.png"));
 
         Label_Login.setBackground(new java.awt.Color(153, 153, 153));
         Label_Login.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
-        Label_Login.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Login.setForeground(new java.awt.Color(0, 0, 0));
         Label_Login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Label_Login.setText("Login");
+
+        Label_Usuario.setBackground(new java.awt.Color(153, 153, 153));
+        Label_Usuario.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        Label_Usuario.setForeground(new java.awt.Color(0, 0, 0));
+        Label_Usuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Label_Usuario.setText("Usuário:");
+
+        Label_Senha.setBackground(new java.awt.Color(153, 153, 153));
+        Label_Senha.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        Label_Senha.setForeground(new java.awt.Color(0, 0, 0));
+        Label_Senha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Label_Senha.setText("Senha:");
+        Label_Senha.setToolTipText("");
+
+        Label_login_Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Images/Icon/logogym.png"))); // NOI18N
 
         TextField_Usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,19 +97,6 @@ public class Tela_Login extends javax.swing.JFrame {
             }
         });
 
-        Label_Usuario.setBackground(new java.awt.Color(153, 153, 153));
-        Label_Usuario.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        Label_Usuario.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Usuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Usuario.setText("Usuário:");
-
-        Label_Senha.setBackground(new java.awt.Color(153, 153, 153));
-        Label_Senha.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        Label_Senha.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Senha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Senha.setText("Senha:");
-        Label_Senha.setToolTipText("");
-
         Button_Entrar.setBackground(new java.awt.Color(255, 255, 255));
         Button_Entrar.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         Button_Entrar.setForeground(new java.awt.Color(51, 51, 51));
@@ -94,60 +108,50 @@ public class Tela_Login extends javax.swing.JFrame {
             }
         });
 
-        Label_login_Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Images/esportes-e-competicao.png"))); // NOI18N
-
-        javax.swing.GroupLayout FundoLayout = new javax.swing.GroupLayout(Fundo);
-        Fundo.setLayout(FundoLayout);
-        FundoLayout.setHorizontalGroup(
-            FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FundoLayout.createSequentialGroup()
-                .addGroup(FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FundoLayout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addGroup(FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Label_Login, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(Label_Senha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TextField_Usuario)
-                            .addComponent(PasswordField_Senha)
-                            .addComponent(Label_Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(FundoLayout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(Button_Entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(FundoLayout.createSequentialGroup()
-                        .addGap(164, 164, 164)
+        javax.swing.GroupLayout fundo1Layout = new javax.swing.GroupLayout(fundo1);
+        fundo1.setLayout(fundo1Layout);
+        fundo1Layout.setHorizontalGroup(
+            fundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fundo1Layout.createSequentialGroup()
+                .addGroup(fundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addGroup(fundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Label_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextField_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PasswordField_Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(fundo1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(Button_Entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
                         .addComponent(Label_login_Icon)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(510, Short.MAX_VALUE))
         );
-        FundoLayout.setVerticalGroup(
-            FundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FundoLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(Label_login_Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+        fundo1Layout.setVerticalGroup(
+            fundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fundo1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(Label_login_Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Label_Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Label_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(Label_Usuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(TextField_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(Label_Senha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(PasswordField_Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(Button_Entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fundo, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fundo, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-        );
+        getContentPane().add(fundo1);
+        fundo1.setBounds(0, 0, 800, 563);
 
         setSize(new java.awt.Dimension(396, 589));
         setLocationRelativeTo(null);
@@ -161,6 +165,18 @@ public class Tela_Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         nome = TextField_Usuario.getText();
         senha = PasswordField_Senha.getText();
+        try {
+            verificar.verificarUsuario(nome, senha);
+            if (verificar.getStatus() == true){
+                principal.setVisible(true);
+              this.dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Login e/ou usuário errado(s)","Erro",JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Tela_Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_Button_EntrarActionPerformed
 
@@ -171,48 +187,17 @@ public class Tela_Login extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Tela_Login().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_Entrar;
-    private javax.swing.JPanel Fundo;
     private javax.swing.JLabel Label_Login;
     private javax.swing.JLabel Label_Senha;
     private javax.swing.JLabel Label_Usuario;
     private javax.swing.JLabel Label_login_Icon;
     private javax.swing.JPasswordField PasswordField_Senha;
     private javax.swing.JTextField TextField_Usuario;
+    private View.Images.fundo fundo1;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -4,19 +4,106 @@
  * and open the template in the editor.
  */
 package View;
+import javax.swing.*;
+import javax.swing.table.*;
+import java.awt.*;
+import java.sql.*;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author luish
  */
 public class Tela_Vendas extends javax.swing.JFrame {
+    private String nome, tipo, dados;
+            String dadosNome;
+            private int qnts;
+            private double valor;
+            private String dadosVendas;
+            private DefaultTableModel modelo;
+            private JTable tabela;
+            private double valorTotal;
+            int quantidadeClic;
+            int quantidadeTotal;
 
     /**
      * Creates new form Vendas
      */
     public Tela_Vendas() {
         initComponents();
+        dadosNome= "";
+        dados = "Lista de itens a serem vendidos: ";
+        valorTotal = 0;
+        jTextField1.setText(String.valueOf(valorTotal));
+        quantidadeClic = 0;
+        quantidadeTotal = 0;
+        nome = "";
+        qnts = 0 ;
+        valor = 0;
     }
+    
+    public void finalizarVenda(String nome,String tipo, double valor, int quantidade){
+        
+        
+        
+        
+        
+        try
+        {
+            String nome1 = "";
+            String sql = "" ;
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/academia","root","");
+            Statement stm = con.createStatement();
+            ResultSet res = stm.executeQuery("Select * from itensvendidos ");
+            while(res.next())
+           {
+               nome1 = res.getString("Nome");
+          }
+            
+            
+            
+            
+        if(nome == nome1){
+                sql = " UPDATE  itensvendidos SET quantidade = '"+quantidade+"' WHERE nome = '"+nome+"'  " ;
+                
+                
+            }
+        else{
+            sql = " insert into itensvendidos values('"+nome+"','"+tipo+"','"+valor+"','"+quantidade+"') ";
+            
+        }
+            
+            
+            
+            if(stm.executeUpdate(sql)!=0)
+            {
+              
+              
+              
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Erro ao alterar!!!","Erro",JOptionPane.ERROR_MESSAGE);
+            }
+            
+            
+           nome1 = nome;
+           System.out.println(nome1);
+           System.out.println(nome);
+        }
+        
+        catch(ClassNotFoundException e)
+        {
+              JOptionPane.showMessageDialog(null,""+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);         
+        }
+        catch(SQLException e)
+        {
+               JOptionPane.showMessageDialog(null,""+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,66 +115,88 @@ public class Tela_Vendas extends javax.swing.JFrame {
     private void initComponents() {
 
         Fundo_Venda = new javax.swing.JPanel();
+        fundo1 = new View.Images.fundo();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        Label_Vendas = new javax.swing.JLabel();
-        Label_TipoProduto = new javax.swing.JLabel();
-        Labe_ValorTotal = new javax.swing.JLabel();
-        Label_RS = new javax.swing.JLabel();
-        Label_ItensaSerVendido = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        ComboBox_TipodoProduto = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Table_Descrição = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jSeparator4 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vendas");
+        setBackground(new java.awt.Color(102, 102, 102));
         setResizable(false);
 
-        Fundo_Venda.setBackground(new java.awt.Color(51, 51, 51));
-        Fundo_Venda.setForeground(new java.awt.Color(51, 51, 51));
+        Fundo_Venda.setBackground(new java.awt.Color(255, 255, 255));
+        Fundo_Venda.setForeground(new java.awt.Color(255, 255, 255));
 
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        fundo1.setImg(new ImageIcon("src/View/images/Fundo01.png"));
 
-        Label_Vendas.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
-        Label_Vendas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Label_Vendas.setText("Vendas");
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Vendas");
 
-        Label_TipoProduto.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        Label_TipoProduto.setText("Tipo do Produto:");
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Tipo do Produto:");
 
-        Labe_ValorTotal.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        Labe_ValorTotal.setText("Valor Total:");
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Itens a ser Vendidos:");
 
-        Label_RS.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        Label_RS.setText("R$:");
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Valor Total:");
 
-        Label_ItensaSerVendido.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        Label_ItensaSerVendido.setText("Itens a ser Vendidos:");
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("R$:");
 
-        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setBackground(new java.awt.Color(102, 102, 102));
+        jSeparator1.setForeground(new java.awt.Color(102, 102, 102));
 
-        ComboBox_TipodoProduto.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        ComboBox_TipodoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Suplementos", "Acessórios", "Bebidas" }));
-        ComboBox_TipodoProduto.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.setEditable(false);
+        jTextField1.setCaretColor(new java.awt.Color(102, 102, 102));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBox_TipodoProdutoActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jSeparator3.setBackground(new java.awt.Color(102, 102, 102));
+        jSeparator3.setForeground(new java.awt.Color(102, 102, 102));
+
+        jComboBox1.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Suplementos", "Acessórios", "Bebidas" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
 
         jScrollPane1.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
 
-        Table_Descrição.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setBackground(new java.awt.Color(204, 204, 204));
+        jTable1.setForeground(new java.awt.Color(0, 0, 0));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nome", "Valor", "Quantidade"
@@ -96,113 +205,144 @@ public class Tela_Vendas extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-        });
-        Table_Descrição.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Table_DescriçãoMouseClicked(evt);
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(Table_Descrição);
+        jTable1.setSelectionBackground(new java.awt.Color(153, 153, 153));
+        jTable1.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setCaretColor(new java.awt.Color(102, 102, 102));
         jScrollPane2.setViewportView(jTextArea1);
 
-        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator4.setBackground(new java.awt.Color(102, 102, 102));
+        jSeparator4.setForeground(new java.awt.Color(102, 102, 102));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Excluir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Finalizar Venda");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout fundo1Layout = new javax.swing.GroupLayout(fundo1);
+        fundo1.setLayout(fundo1Layout);
+        fundo1Layout.setHorizontalGroup(
+            fundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fundo1Layout.createSequentialGroup()
+                .addGroup(fundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(441, 441, 441)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(413, 413, 413)
+                        .addComponent(jLabel5))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(441, 441, 441)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel2))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(441, 441, 441)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        fundo1Layout.setVerticalGroup(
+            fundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fundo1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(fundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel3))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(389, 389, 389)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(351, 351, 351)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(453, 453, 453)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(395, 395, 395)
+                        .addComponent(jLabel5))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(364, 364, 364)
+                        .addComponent(jLabel4))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel2))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(fundo1Layout.createSequentialGroup()
+                        .addGap(389, 389, 389)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout Fundo_VendaLayout = new javax.swing.GroupLayout(Fundo_Venda);
         Fundo_Venda.setLayout(Fundo_VendaLayout);
         Fundo_VendaLayout.setHorizontalGroup(
             Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                .addComponent(Label_Vendas, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
-            .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                                    .addComponent(Label_ItensaSerVendido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                                        .addComponent(Label_RS)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(Labe_ValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Label_TipoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboBox_TipodoProduto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(fundo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
         Fundo_VendaLayout.setVerticalGroup(
             Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                .addComponent(Label_Vendas, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Label_TipoProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ComboBox_TipodoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                        .addComponent(Label_ItensaSerVendido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Fundo_VendaLayout.createSequentialGroup()
-                        .addComponent(Labe_ValorTotal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Label_RS)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(Fundo_VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)))
-                .addGap(159, 159, 159))
+            .addComponent(fundo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -220,74 +360,254 @@ public class Tela_Vendas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ComboBox_TipodoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_TipodoProdutoActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBox_TipodoProdutoActionPerformed
+        nome = "";
+           qnts = 0 ;
+           valor = 0;
+        if(jComboBox1.getSelectedItem().toString() ==  "Suplementos"){
+            try
+            {
+           Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/academia","root","");
+           Statement stm = con.createStatement();
+           ResultSet res = stm.executeQuery("Select * from produtos WHERE tipo = 'Suplimentos'");
+           DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+           model.setNumRows(0);
+           
+           
+           while(res.next())
+           {
+               nome = res.getString("Nome");
+               qnts = res.getInt("Quantidade");
+               valor = res.getDouble("Valor");
+               model.addRow(new Object[]{nome,valor,qnts});
+               
+              
+               
+              
+           }
+           
+                      
+       }
+       catch(ClassNotFoundException e)
+       {
+           JOptionPane.showMessageDialog(null,"Erro: "+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
+       }
+       catch(SQLException e)
+       {
+           JOptionPane.showMessageDialog(null,"Erro: "+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
+       }
+        }else if(jComboBox1.getSelectedItem().toString() ==  "Acessórios"){
+            
+             try
+            {
+           Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/academia","root","");
+           Statement stm = con.createStatement();
+           ResultSet res = stm.executeQuery("Select * from produtos WHERE tipo = 'Acessorios'");
+           DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+           jTable1.setRowSorter(new TableRowSorter(model));
+           model.setNumRows(0);
+           nome = "";
+           qnts = 0 ;
+           valor = 0;
+           while(res.next())
+           {
+               nome = res.getString("Nome");
+               qnts = res.getInt("Quantidade");
+               valor = res.getDouble("Valor");
+              model.addRow(new Object[]{nome,valor,qnts});
+               
+              
+               
+              
+           }
+           
+                      
+       }
+       catch(ClassNotFoundException e)
+       {
+           JOptionPane.showMessageDialog(null,"Erro: "+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
+       }
+       catch(SQLException e)
+       {
+           JOptionPane.showMessageDialog(null,"Erro: "+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
+       }
+            
+        }else if(jComboBox1.getSelectedItem().toString() ==  "Bebidas"){
+            try
+            {
+            
+             
+           Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/academia","root","");
+           Statement stm = con.createStatement();
+           ResultSet res = stm.executeQuery("Select * from produtos WHERE tipo = 'Bebidas'");
+           DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+           jTable1.setRowSorter(new TableRowSorter(model));
+           model.setNumRows(0);
+           nome = "";
+           qnts = 0 ;
+           valor = 0;
+           while(res.next())
+           {
+               nome = res.getString("Nome");
+               qnts = res.getInt("Quantidade");
+               valor = res.getDouble("Valor");
+               model.addRow(new Object[]{nome,valor,qnts});
+               
+              
+               
+              
+           }
+           
+                      
+       }
+       catch(ClassNotFoundException e)
+       {
+           JOptionPane.showMessageDialog(null,"Erro: "+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
+       }
+       catch(SQLException e)
+       {
+           JOptionPane.showMessageDialog(null,"Erro: "+e.getMessage(),"Erro",JOptionPane.ERROR_MESSAGE);
+       }
+            
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void Table_DescriçãoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table_DescriçãoMouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_Table_DescriçãoMouseClicked
+        try{
+            
+            
+            
+           
+                dadosNome = jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0).toString();
+                Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/academia","root","");
+           Statement stm = con.createStatement();
+           ResultSet res = stm.executeQuery("Select * from produtos where nome = '"+dadosNome+"'");
+             
+            
+           
+           
+           while(res.next())
+           {
+               //adicionando na area de texto
+               dados += "\nNome: "+res.getString("nome"); 
+               dados += " | Valor: "+res.getString("valor");
+               quantidadeClic ++ ;
+               System.out.println(quantidadeClic);
+               
+               
+               
+               valorTotal = valorTotal + res.getDouble("valor");
+               jTextField1.setText(String.valueOf(valorTotal));
+               int quantidade = res.getInt("quantidade");
+               quantidade = quantidade - quantidadeClic;
+               
+               
+              // adicionando no db itensVendidos
+              String nome = res.getString("nome");
+              String tipo = res.getString("tipo"); 
+              double valor = res.getDouble("valor");
+              
+               
+               
+               
+               
+               
+               
+               
+               
+                   finalizarVenda(nome,tipo,valor, quantidade );
+               
+               
+               
+               
+               
+           }
+           jTextArea1.setText(dados);
+           
+           
+        }catch(Exception  e){
+            
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String nomes = null;
+        int quantidade = 0;
+        
+        try{
+          Class.forName("com.mysql.jdbc.Driver");
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost/academia","root","");
+           Statement stm = con.createStatement();
+           ResultSet res = stm.executeQuery("Select * from itensVendidos ");
+             
+            
+           
+           
+           while(res.next())
+           {
+               
+                nomes = res.getString("nome"); 
+                quantidade = res.getInt("quantidade");
+             
+           }
+           if(stm.executeUpdate("UPDATE  produtos SET quantidade = "+quantidade+" WHERE nome = '"+nomes+"' ")!=0)
+            {
+              JOptionPane.showMessageDialog(null,"Compra  realizada","Sucesso",JOptionPane.INFORMATION_MESSAGE);
+              
+              
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"Erro ao alterar!!!","Erro",JOptionPane.ERROR_MESSAGE);
+            }
+           
+            stm.executeUpdate("TRUNCATE TABLE itensVendidos ");
+           
+           
+           
+        }catch(Exception  e){
+            
+        }
+        nome = "";
+        qnts = 0 ;
+        valor = 0;
+        dados = "";
+        jTextArea1.setText("");
+        jTextField1.setText(String.valueOf(valor));
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela_Vendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela_Vendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela_Vendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela_Vendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Tela_Vendas().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboBox_TipodoProduto;
     private javax.swing.JPanel Fundo_Venda;
-    private javax.swing.JLabel Labe_ValorTotal;
-    private javax.swing.JLabel Label_ItensaSerVendido;
-    private javax.swing.JLabel Label_RS;
-    private javax.swing.JLabel Label_TipoProduto;
-    private javax.swing.JLabel Label_Vendas;
-    private javax.swing.JTable Table_Descrição;
-    private javax.swing.JButton jButton1;
+    private View.Images.fundo fundo1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
