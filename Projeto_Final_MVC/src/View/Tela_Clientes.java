@@ -301,7 +301,7 @@ public class Tela_Clientes extends javax.swing.JFrame {
 
         jScrollPane1.setForeground(new java.awt.Color(0, 0, 0));
 
-        jTable1.setForeground(new java.awt.Color(204, 204, 204));
+        jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -318,7 +318,7 @@ public class Tela_Clientes extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jTable1.setSelectionBackground(new java.awt.Color(153, 153, 153));
         jTable1.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
